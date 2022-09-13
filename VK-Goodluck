@@ -1,0 +1,56 @@
+class TestDict:
+    @pytest.mark.parametrize('input_value', [{1, 2, 3}, {1: 1, 2: 2, 3: 3}, None])
+    def test_dict_1(self, input_value):
+        try:
+            assert type(input_value) is dict, 'Input is not a dict'
+        except AssertionError:
+            pass
+
+    def test_dict_2(self, input_dict={1, 2, 3}):
+        assert len(input_dict) != 0, 'The dict is empty'
+
+    def test_dict_3(self, input_dict={1, 2, 3}, input_value=2):
+        assert input_value in input_dict, 'Value is not in the dict'
+
+
+class Test_Float:
+    def test_float_1(self, input_value=1.06, check=1.0, abs_error=0.1):
+        assert pytest.approx(input_value, abs=abs_error) == check
+
+    def test_float_3(self, input_value=4.0):
+        assert input_value % 2 == 0.0 
+
+    def test_float_2(self, input_value=1.06, min_=5, max_=10):
+      try:
+          assert min_ <= input_value <= max_, f'number is not in interval [{min_};{max_}]'
+      except AssertionError:
+          pass
+class Test:
+    @pytest.mark.parametrize('elem',
+                             ['string', [str(i) for i in range(5)], False, None])
+    def test_list_1(self, elem):
+        
+
+        test_list = [i for i in range(10)]
+        test_list_size = len(test_list)
+        test_list.append(elem)
+
+        assert len(test_list) == test_list_size + 1, 'Impossible add element to the list'
+
+    def test_list_2(self):
+
+        test_list1 = [1, 2, 3]
+        test_list2 = [3, 2, 1]
+
+        try:
+            assert test_list1 - test_list2, 'Impossible to substract one list from another'
+        except TypeError:
+            pass
+
+    def test_list_3(self):
+
+        test_list = [i for i in range(10)]
+        2_test_list = [i for i in range(9, -1, -1)]
+        test_list.reverse()
+
+        assert test_list == 2_test_list, 'List is impossible to reverse'
